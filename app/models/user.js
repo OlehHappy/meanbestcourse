@@ -9,11 +9,11 @@
    password: {type: String, required: true, select: false}
  });
 
- UserSchema.pre('save', function(next){
+ UserSchema.pre('save', function(next) {
 
  	var user = this;
 
- 	if(!user.isModifed('password')) return next();
+ 	if(!user.isModified('password')) return next();
 
   bcrypt.hash(user.password, null, null, function(err, hash) {
     if(err) return next(err);
@@ -27,7 +27,7 @@
     var user = this;
     return bcrypt.compareSync(password, user.password);
 
-  }
+  };
 
 });
 
