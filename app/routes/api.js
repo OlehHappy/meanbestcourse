@@ -5,13 +5,12 @@ var jsonwebtoken = require('jsonwebtoken');
 
 function createToken(user) {
 
-var token = jsonwebtoken.signup({
-
+var token = jsonwebtoken.sign({
     _id: user._id,
     name: user.name,
     username: user.username
   }, secretKey, {
-    expirtesInMinute: 1440
+    expiresInMinute: 1440
   });
   return token;
 }
@@ -48,7 +47,7 @@ module.exports = function(app, express) {
 
   });
 
-    api.post('/login', function(req, res){
+    api.post('/login', function(req, res) {
 
       User.findOne({
         username: req.body.username
@@ -56,12 +55,12 @@ module.exports = function(app, express) {
         if(err) throw err;
         if(!user){
 
-          res.send({ message: "User doesn't exist, bro. Just smoke and try again"});
+          res.send({ message: "User doesn't exist, bro. Just smoke and try again" });
         } else if(user){
 
           var validPassword = user.comparePassword(req.body.password);
 
-          if (!validPassword) {
+          if(!validPassword) {
 
           res.send({ meassage: "invalid password" });
         } else {
@@ -79,5 +78,5 @@ module.exports = function(app, express) {
     });
 
 
-  return api;
+  return api
 }
