@@ -54,25 +54,22 @@ module.exports = function(app, express) {
         username: req.body.username
       }).select('password').exec(function(err, user) {
         if(err) throw err;
-        if(!user){
-
+        if (!user) {
           res.send({ message: "User doesn't exist, bro. Just smoke and try again"});
-        } else if(user){
+        } else if(user) {
 
           var validPassword = user.comparePassword(req.body.password);
 
           if (!validPassword) {
-
-          res.send({ meassage: "invalid password" });
-        } else {
+            res.send({ meassage: "invalid password" });
+          } else {
           ////////-------TOKEN----------------------
-
-          var token = createToken(user);
-           res.json({
-              success: true,
-              message: "Successfuly login!",
-              token: token
-           });
+            var token = createToken(user);
+             res.json({
+                success: true,
+                message: "Successfuly login!",
+                token: token
+             });
           }
         }
       });
