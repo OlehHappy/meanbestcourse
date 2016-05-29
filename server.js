@@ -19,7 +19,7 @@
  app.use(morgan('dev'));
 
  var api = require('./app/routes/api')(app, express);
-app.use('/api', api);
+ app.use('/api', api);
 
 
 
