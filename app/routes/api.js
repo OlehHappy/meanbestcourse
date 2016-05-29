@@ -10,7 +10,7 @@ var token = jsonwebtoken.sign({
     name: user.name,
     username: user.username
   }, secretKey, {
-    expiresInMinute: 1440
+    expiresIn: 86400000
   });
   return token;
 }
