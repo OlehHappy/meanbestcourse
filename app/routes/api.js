@@ -5,26 +5,20 @@ var jsonwebtoken = require('jsonwebtoken');
 
 function createToken(user) {
 
-<<<<<<< HEAD
-var token = jsonwebtoken.sign({
-    _id: user._id,
-    name: user.name,
-    username: user.username
-  }, secretKey, {
-    expiresIn: 86400000
-=======
+
   var token = jsonwebtoken.sign({
                 _id: user._id,
                 name: user.name,
                 username: user.username
               }, secretKey, {
                 expiresIn: 86400000 // 1 day
->>>>>>> 58ad11203ebbab2437e24e522635b75415bc481c
+
   });
 
   return token;
 }
 
+        //----------Destination A (above MIDDLEWARE) --------------------------
 
 module.exports = function(app, express) {
   var api = express.Router();
@@ -89,11 +83,11 @@ module.exports = function(app, express) {
 
       //------------------ MIDDLEWARE part ---------------
 
-    app.use(function(req, res, next) {
+    api.use(function(req, res, next) {
 
-      concole.log("Somebody just came to our app!");
+      console.log("Somebody just came to our app!");
 
-        var.token = req.body.token || req.param('token') || req.headers['x-acces-token'];
+        var token = req.body.token || req.param('token') || req.headers['x-access-token'];
 
         //CHECK if token exist
 
@@ -115,7 +109,7 @@ module.exports = function(app, express) {
 
                 res.status(403).send({ success: false, message: "No token provided"});
 
-                
+
 
               } //else
 
@@ -123,10 +117,14 @@ module.exports = function(app, express) {
 
 
 
+            //--------Destination B --------//provide ligitimage toke
 
 
+            api.get('/', function(req, res) {
 
+              res.json("hello baby");
 
+            }); //api.get('/', function...
 
 
 
