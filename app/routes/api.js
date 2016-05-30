@@ -83,10 +83,52 @@ module.exports = function(app, express) {
              });
           } // if !validPassword
 
-
         } // if !user
       });
     });
+
+      //------------------ MIDDLEWARE part ---------------
+
+    app.use(function(req, res, next) {
+
+      concole.log("Somebody just came to our app!");
+
+        var.token = req.body.token || req.param('token') || req.headers['x-acces-token'];
+
+        //CHECK if token exist
+
+            if(token) {
+
+              jsonwebtoken.verify(token, secretKey, function(err, decoded) {
+
+                  if(err) {res.status(403).send({ success: false, message: "Fail to authinticate user" });
+
+                } else {
+
+                  req.ecoded = decoded;
+
+                  next();
+                }
+              });//jsonwebtoken.verify(token, secretKey, function(err, decoded)
+            } //if(token)
+              else{
+
+                res.status(403).send({ success: false, message: "No token provided"});
+
+                
+
+              } //else
+
+       }); //app.use.function
+
+
+
+
+
+
+
+
+
 
 
   return api;
