@@ -1,4 +1,5 @@
 var User = require('../models/user');
+var Story = require('../models/story');
 var config = require('../../config');
 var secretKey = config.secretKey;
 var jsonwebtoken = require('jsonwebtoken');
@@ -7,7 +8,7 @@ function createToken(user) {
 
 
   var token = jsonwebtoken.sign({
-                _id: user._id,
+                id: user._id,
                 name: user.name,
                 username: user.username
               }, secretKey, {
@@ -120,14 +121,34 @@ module.exports = function(app, express) {
             //--------Destination B --------//provide ligitimage toke
 
 
-            api.get('/', function(req, res) {
+            api.route('/')
 
-              res.json("hello baby");
+            .post(function(req, res) {
 
-            }); //api.get('/', function...
+                var story = new Story({
+                    creator: req.decoded.id,
+                    content: req.body.content,
+
+                }); //var Story = new St...
+
+              story.save(function(err) {
+                    if(err) {
+                      res.send(err);
+                      return
+                    }
+
+                  res.json({ meassage: "New story created"});
+
+              }); //story.save(functi....
+
+            }); //.post(function(re...
 
 
 
 
-  return api;
+
+
+
+
+  return api
 }
