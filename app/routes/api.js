@@ -84,23 +84,23 @@ module.exports = function(app, express) {
 
       //------------------ MIDDLEWARE part ---------------
 
-    api.use(function(req, res, next) {
 
+      api.use(function(req, res, next) {
       console.log("Somebody just came to our app!");
-
         var token = req.body.token || req.param('token') || req.headers['x-access-token'];
 
         //CHECK if token exist
-
-            if(token) {
-
+          if(token) {
               jsonwebtoken.verify(token, secretKey, function(err, decoded) {
-
-                  if(err) {res.status(403).send({ success: false, message: "Fail to authinticate user" });
+              if(err) {
+                res.status(403).send({
+                  success: false,
+                  message: "Fail to authenticate user"
+                });
 
                 } else {
 
-                  req.ecoded = decoded;
+                  req.decoded = decoded;
 
                   next();
                 }
@@ -108,10 +108,10 @@ module.exports = function(app, express) {
             } //if(token)
               else{
 
-                res.status(403).send({ success: false, message: "No token provided"});
-
-
-
+                res.status(403).send({
+                  success: false,
+                  message: "No token provided"
+                });
               } //else
 
        }); //app.use.function
@@ -141,12 +141,29 @@ module.exports = function(app, express) {
 
               }); //story.save(functi....
 
-            }); //.post(function(re...
+            }) //.post(function(re...
+
+              .get(function(req, res){
+
+                Story.find({ creator: req.decoded.id }, function(err, stories) {
+
+                  if(err) {
+                    res.send(err);
+                    return
+                  }
+                    res.json(stories);
+
+                }); //Story.find({ crea..
+
+              }); //.get(functi...
 
 
+      api.get('/me', function(req, res) {
+
+        res.json(req.decoded);
 
 
-
+      });
 
 
 
