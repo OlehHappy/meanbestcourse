@@ -33,9 +33,57 @@ authFactory.isLoggedIn = function() {
     return $http.get('/api/me');
     else
       return $q.reject({ message: "User has now token" });
+  }
+return authFactory;
+
+ }) //.factory('Auth', fu...
+
+
+.factory('AuthToken', function($window){
+
+  var authTokenFactory = {};
+
+  authTokenFactory.getToken = function() {
+    return $window.localStorage.getItem('token');
+  }
+
+  authTokenFactory.setToken = function(token) {
+
+    if(token)
+      $window.localStorage.setItem('token', token);
+        else
+          $window.localStorage.removeItem('token');
 
   }
 
+return authTokenFactory;
 
+}); //.factory('AuthToken', function($wind...
 
- }) //.factory('Auth', fu...
+.factory('AuthInterceptor', function($q, $location, AuthToken) {
+
+var interceptorFactory = {};
+
+interceptorFactory.request = function(config) {
+
+  var token = AuthToken.getToken();
+
+    if(token) {
+
+      config.headers['x-access-token'] = token;
+
+    } //if(toke..
+
+      return config;
+
+}; //interceptorFactory.reque...
+
+interceptoryFactory.responseError = function(response) {
+      if(response.status == 403)
+        $location.path('/login');
+
+          return $q.reject(response);
+          
+} //interceptoryFactory.resp..
+
+}) //.factory('AuthIntercep...
