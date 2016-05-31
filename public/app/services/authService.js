@@ -8,7 +8,7 @@
 
        return $http.post('/api/login', {
          username: username,
-         password: password;
+         password: password
 
        }) //return $http.po...
        .success(function (data) {
@@ -58,7 +58,7 @@ return authFactory;
 
 return authTokenFactory;
 
-}); //.factory('AuthToken', function($wind...
+}) //.factory('AuthToken', function($wind...
 
 .factory('AuthInterceptor', function($q, $location, AuthToken) {
 
@@ -78,12 +78,14 @@ interceptorFactory.request = function(config) {
 
 }; //interceptorFactory.reque...
 
-interceptoryFactory.responseError = function(response) {
+interceptorFactory.responseError = function(response) {
       if(response.status == 403)
         $location.path('/login');
 
           return $q.reject(response);
-          
+
 } //interceptoryFactory.resp..
 
-}) //.factory('AuthIntercep...
+return interceptorFactory;
+
+}); //.factory('AuthIntercep...
