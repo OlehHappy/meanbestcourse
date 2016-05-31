@@ -1,0 +1,18 @@
+{
+  "name": "meanbestcourse",
+  "description": "*`sudo npm install http-server -g` should be installed* ``` http-server ```",
+  "main": "node server.js",
+  "authors": [
+    "Oleh Daybov <olegtranslator@gmail.com>"
+  ],
+  "license": "ISC",
+  "homepage": "https://github.com/OlehHappy/meanbestcourse/",
+  "ignore": [
+    "node_modules"
+  ],
+  "dependencies": {
+    "angular": "^1.5.6",
+    "bootstrap": "^3.3.6",
+    "angular-route": "^1.5.6"
+  }
+}

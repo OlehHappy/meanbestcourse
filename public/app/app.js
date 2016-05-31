@@ -1,1 +1,1 @@
-var app = angular.module('MyApp', []);
+angular.module('MyApp', ['appRoutes', 'mainCtrl', 'authService']);
