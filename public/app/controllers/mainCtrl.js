@@ -4,7 +4,7 @@ angular.module('mainCtrl', [])
 
     var vm = this;
 
-    vm.loggedIn = Auth.isLogged();
+    vm.loggedIn = Auth.isLoggedIn();
 
     $rootScope.$on('$routeChangeStart', function() {
 
@@ -18,7 +18,7 @@ angular.module('mainCtrl', [])
 
 vm.doLogin = function () {
 
-  vm.processing = ture;
+  vm.processing = true;
 
   vm.error = '';
 
