@@ -21,7 +21,7 @@ function createToken(user) {
 
         //----------Destination A (above MIDDLEWARE) --------------------------
 
-module.exports = function(app, express) {
+module.exports = function(app, express, io) {
   var api = express.Router();
 
   api.post('/signup', function(req, res) {
@@ -138,12 +138,12 @@ module.exports = function(app, express) {
 
                 }); //var Story = new St...
 
-              story.save(function(err) {
+              story.save(function(err, newStory ) {
                     if(err) {
                       res.send(err);
                       return
                     }
-
+                    io.emit('story', newStory)
                   res.json({ meassage: "New story created"});
 
               }); //story.save(functi....
