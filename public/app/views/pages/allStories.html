@@ -10,7 +10,7 @@
 
 <div class="panel panel-success">
 <div class="panel-heading">Your story</div>
-  <div class="panel-body" ng-repeat="each in story.stories">
+  <div class="panel-body" ng-repeat="each in story.stories | reverse">
   <p>
     {{ each.content }}
   </p>

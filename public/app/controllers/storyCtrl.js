@@ -1,4 +1,4 @@
-angular.module('storyCrtl', ['storyService'])
+angular.module('storyCtrl', ['storyService'])
 
 .controller('StoryController', function(Story, socketio) {
 
