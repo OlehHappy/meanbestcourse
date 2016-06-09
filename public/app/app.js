@@ -1,9 +1,11 @@
-angular.module('MyApp', [
+angular.module('buildingManager', [
   'appRoutes',
   'mainCtrl',
   'userCtrl',
+  'storyCtrl',
   'authService',
-  'userService'
+  'userService',
+  'storyService'
 ])
 
 .config(function($httpProvider) {

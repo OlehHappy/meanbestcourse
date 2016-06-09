@@ -1,53 +1,93 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html ng-app="MyApp">
+<html ng-app="buildingManager">
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <base href="/">
 
-  <title>User Story</title>
+  <title>Building Manager</title>
 
   <!-- css -->
   <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="css/bm.css">
+  <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Arimo:400,700,400italic">
   <!-- libs -->
+  <script type="text/javascript" src="lib/jquery/dist/jquery.min.js"></script>
+  <script type="text/javascript" src="lib/bootstrap/dist/js/bootstrap.min.js"></script>
   <script type="text/javascript" src="lib/angular/angular.js"></script>
   <script type="text/javascript" src="lib/angular-route/angular-route.js"></script>
+  <script type="text/javascript" src="socket.io/socket.io.js"></script>
   <!-- app -->
   <script type="text/javascript" src="app/services/authService.js"></script>
   <script type="text/javascript" src="app/services/userService.js"></script>
+  <script type="text/javascript" src="app/services/storyService.js"></script>
   <script type="text/javascript" src="app/controllers/mainCtrl.js"></script>
   <script type="text/javascript" src="app/controllers/userCtrl.js"></script>
+  <script type="text/javascript" src="app/controllers/storyCtrl.js"></script>
   <script type="text/javascript" src="app/app.routes.js"></script>
   <script type="text/javascript" src="app/app.js"></script>
 </head>
 <body ng-controller="MainController as main">
 
-  <header>
-
-      <!-- <div class="navbar navbar-default" ng-if="!main.loggedIn"> -->
-      <div class="navbar navbar-default">
-        <div class="container">
-          <div class="navbar-header">
-            <a href="/" class="navbar-brand"><span class="glyphicon glyphicon-book"></span>User Story</a>
-          </div>
-
-          <ul class="nav navbar-nav">
-            <li><a href="/users"></a></li>
-          </ul>
-
-          <ul class="nav navbar-nav navbar-right">
-            <li ng-if="!main.loggedIn"><a href="/login">login</a></li>
-            <li ng-if="!main.loggedIn"><a href="/signup">Signup</a></li>
-            <li ng-if="main.loggedIn"><a href="#">Hello {{main.user.username}}</a></li>
-            <li ng-if="main.loggedIn"><a href="#" ng-click="main.doLogout()">Logout</a></li>
-          </ul>
-        </div>
+  <nav class="navbar navbar-default navbar-static-top">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="#">
+          <img class="img-responsive"
+                src="images/logo.png"
+                alt="Building Manager" /></a>
       </div>
+      <div id="navbar" class="collapse navbar-collapse">
+        <ul class="nav navbar-nav">
+          <li class="active"><a href="/">Home</a></li>
+          <li><a href="#">Features</a></li>
+          <li><a href="#">Reviews</a></li>
+        </ul>
 
-  </header>
+        <ul class="nav navbar-nav navbar-right">
+          <li ng-if="!main.loggedIn" id="login-btn"><a href="/login">Login</a></li>
+          <li ng-if="!main.loggedIn" id="register-btn"><a href="/signup">Signup</a></li>
+          <li ng-if="main.loggedIn" id="register-btn"><a href="#">Hello {{main.user.username}}</a></li>
+          <li ng-if="main.loggedIn" id="register-btn"><a href="#" ng-click="main.doLogout()">Logout</a></li>
+        </ul>
 
-  <main class="container">
-    <div ng-view></div>
-  </main>
+      </div> <!--/.nav-collapse -->
+
+    </div>
+  </nav>
+
+
+  <div ng-view></div>
+
+
+  <footer class="footer-blok">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12">
+
+          <ul class="list-inline">
+            <li><a href="/">Home</a></li>
+            <li>&sdot;</li>
+            <li><a href="/login">Login</a></li>
+            <li>&sdot;</li>
+            <li ng-if="!main.loggedIn"><a href="/">Register</a></li>
+            <li>&sdot;</li>
+            <li><a href="/">Contact</a></li>
+          </ul>
+
+          <p class="copyright text-muted small">
+            Copyright &copy; Building Manager 2016. All Rights Reserved
+          </p>
+        </div> <!-- col-lg-12 -->
+      </div>  <!-- row -->
+    </div> <!-- container -->
+
+  </footer>
 
 </body>
 </html>
