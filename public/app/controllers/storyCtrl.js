@@ -28,7 +28,6 @@ angular.module('storyCtrl', ['storyService'])
 .controller('AllStoriesController', function(stories, socketio) {
   var vm = this;
 
-  console.log(stories.data[0].content);
   vm.stories = stories.data;
 
   socketio.on('story', function(data) {

@@ -5,7 +5,8 @@ angular.module('buildingManager', [
   'storyCtrl',
   'authService',
   'userService',
-  'storyService'
+  'storyService',
+  'reverseDirective'
 ])
 
 .config(function($httpProvider) {
