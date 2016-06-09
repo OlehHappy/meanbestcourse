@@ -14,6 +14,16 @@ angular.module('appRoutes', ['ngRoute'])
     })
     .when('/signup', {
       templateUrl: 'app/views/pages/signup.html'
+    })
+    .when('/allstories', {
+      templateUrl: 'app/views/pages/allstories.html',
+      controller: 'AllStoriesController',
+      controllerAs: 'story',
+      resolve: {
+        stories: function(Story) {
+          return Story.allStories();
+        }
+      }
     });
 
     $locationProvider.html5Mode(true);

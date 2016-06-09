@@ -23,4 +23,15 @@ angular.module('storyCtrl', ['storyService'])
     vm.stories.push(data);
   })
 
+})
+
+.controller('AllStoriesController', function(stories, socketio) {
+  var vm = this;
+
+  console.log(stories.data[0].content);
+  vm.stories = stories.data;
+
+  socketio.on('story', function(data) {
+    vm.stories.push(data);
+  });
 });
