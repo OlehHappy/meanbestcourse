@@ -9,7 +9,8 @@ function createToken(user) {
   var token = jsonwebtoken.sign({
                 id: user._id,
                 name: user.name,
-                username: user.username
+                username: user.username,
+                test: user.test
               }, secretKey, {
                 expiresIn: 86400000 // 1 day
   });
@@ -38,7 +39,8 @@ module.exports = function(app, express, io) {
     var user = new User({
                   name: req.body.name,
                   username: req.body.username,
-                  password: req.body.password
+                  password: req.body.password,
+                  test: req.body.test
     });
 
     var token = createToken(user);
@@ -71,14 +73,13 @@ module.exports = function(app, express, io) {
 
       User.findOne({
         username: req.body.username
-      }).select('name username password').exec(function(err, user) {
+      }).select('name username password test').exec(function(err, user) {
 
         if(err) throw err;
 
         if(!user){
           res.send({ message: "User doesn't exist, bro. Just smoke and try again" });
         } else if(user) {
-
           var validPassword = user.comparePassword(req.body.password);
 
           if(!validPassword) {
